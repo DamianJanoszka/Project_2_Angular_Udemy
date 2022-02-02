@@ -29,6 +29,10 @@ import { Subscription } from 'rxjs';
       this.dataStorageService.storeRecipes();
     }
 
+    onLogout(){
+      this.authService.logout();
+    }
+
     onFetchData() {
       this.dataStorageService.fetchRecipes().subscribe();
     }

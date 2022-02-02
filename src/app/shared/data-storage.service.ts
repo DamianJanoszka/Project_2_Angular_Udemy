@@ -22,16 +22,9 @@ export class DataStorageService{
     fetchRecipes(){
       //take(1) takes one value from observable and then automatically unsubscribes
       //exhaustMap wait for the first Observable to complete
-      return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
         return this.http
-        .get<Recipe[]>('https://ng-complete-guide-f8be8-default-rtdb.firebaseio.com/recipes.json',
-        {
-          params: new HttpParams().set('auth', user.token)
-        }
-        );
-      }),map(recipes=>{
+        .get<Recipe[]>('https://ng-complete-guide-f8be8-default-rtdb.firebaseio.com/recipes.json')
+        .pipe(map(recipes=>{
       // if we dont put on our server recipes with ingredients then will ad a empty array
                  return recipes.map(recipe => {
                    return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
